@@ -9,7 +9,9 @@
     <img src="{{ movie.poster }}" alt="{{ movie.title }} poster" class="float-end">
     <ul>
         <li>Id : {{ movie.id }}</li>
+        <li>IMDb Id : {{ movie.imdbId }}</li>
         <li>Country : {{ movie.country }}</li>
+        <li>Rated : {{ movie.rated }}</li>
         <li>Released at: {{ movie.releasedAt|date('Y M d') }}</li>
         <li>Genres : {{ movie.genres|reduce((carry, genre) => carry != '' ? carry ~ ', ' ~ genre.name : genre.name) }}</li>
         <li>Price : {{ movie.price }}</li>
