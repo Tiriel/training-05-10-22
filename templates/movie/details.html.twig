@@ -4,11 +4,15 @@
 
 {% block body %}
 <div class="example-wrapper">
-    <h1>Movie : {{ movie.title }}</h1>
+    <h1 class="mb-5">Movie : {{ movie.title }}</h1>
 
+    <img src="{{ movie.poster }}" alt="{{ movie.title }} poster" class="float-end">
     <ul>
+        <li>Id : {{ movie.id }}</li>
+        <li>Country : {{ movie.country }}</li>
         <li>Released at: {{ movie.releasedAt|date('Y M d') }}</li>
-        <li>Genres : {{ movie.genres|join(', ') }}</li>
+        <li>Genres : {{ movie.genres|reduce((carry, genre) => carry != '' ? carry ~ ', ' ~ genre.name : genre.name) }}</li>
+        <li>Price : {{ movie.price }}</li>
     </ul>
 </div>
 {% endblock %}
