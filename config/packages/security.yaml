@@ -3,6 +3,14 @@ security:
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
+    role_hierarchy:
+        ROLE_PROVIDER: ROLE_USER
+        ROLE_MODERATOR: ROLE_USER
+        ROLE_ADMIN:
+            - ROLE_PROVIDER
+            - ROLE_MODERATOR
+    access_decision_manager:
+        allow_if_all_abstain: false
     providers:
         app_admin_provider:
             memory:
@@ -39,7 +47,9 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/admin/movie/\d+(/edit)?$, roles: ROLE_USER, allow_if: "is_granted('movie.view', object)" }
+        - { path: ^/admin/book/\d+(/edit)?$, roles: ROLE_USER, allow_if: "is_granted('book.view', object)" }
+        - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:
