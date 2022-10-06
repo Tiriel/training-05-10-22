@@ -11,6 +11,7 @@ security:
             - ROLE_MODERATOR
     access_decision_manager:
         allow_if_all_abstain: false
+        strategy: affirmative #priority, unanimous, consensus
     providers:
         app_admin_provider:
             memory:
@@ -47,7 +48,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/admin/movie/\d+(/edit)?$, roles: ROLE_USER, allow_if: "is_granted('movie.view', object)" }
+        - { path: ^/admin/movie/\d+(/edit)?$, roles: ROLE_USER, allow_if: "is_granted('movie.edit', object)" }
         - { path: ^/admin/book/\d+(/edit)?$, roles: ROLE_USER, allow_if: "is_granted('book.view', object)" }
         - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }

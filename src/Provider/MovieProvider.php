@@ -16,7 +16,8 @@ class MovieProvider
     public function __construct(
         private readonly MovieRepository $repository,
         private readonly OmdbApiConsumer $consumer,
-        private readonly OmdbMovieTransformer $transformer
+        private readonly OmdbMovieTransformer $transformer,
+        private readonly Security $security
     ) {}
 
     public function setIo(SymfonyStyle $io): void
@@ -46,6 +47,7 @@ class MovieProvider
 
         $movie = $this->transformer->transform($data);
         $this->sendIo('text', 'Movie found, saving in database');
+        $movie->setCreatedBy($this->security->getUser());
         $this->repository->add($movie, true);
 
         return $movie;
