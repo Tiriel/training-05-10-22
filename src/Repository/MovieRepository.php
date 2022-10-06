@@ -11,7 +11,6 @@ use Doctrine\Persistence\ManagerRegistry;
  *
  * @method Movie|null find($id, $lockMode = null, $lockVersion = null)
  * @method Movie|null findOneBy(array $criteria, array $orderBy = null)
- * @method Movie[]    findAll()
  * @method Movie[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class MovieRepository extends ServiceEntityRepository
@@ -37,6 +36,14 @@ class MovieRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findAll(int $moviesPerPage = 10, int $offset = 0)
+    {
+        return $this->createQueryBuilder('m')
+            ->setMaxResults($moviesPerPage)
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DefaultController!{% endblock %}
+{% block title %}Sensio TV+{% endblock %}
 
 {% block header %}
     {{ parent() }}
@@ -17,6 +17,7 @@
         <div class="row row-cols-3">
             {% for movie in movies %}
                 <div class="col">
+                    <a href="{{ path('app_movie_details', {'id': movie.id}) }}">
                     <div class="card w-75">
                         <img src="{{ movie.poster }}" alt="{{ movie.poster }}">
                         <div class="card-img-overlay text-white">
@@ -24,6 +25,7 @@
                             <p class="card-text">Release date: {{ movie.releasedAt|date('Y/m/d') }}</p>
                         </div>
                     </div>
+                    </a>
                 </div>
             {% else %}
                 <p>No movies in database yet...</p>

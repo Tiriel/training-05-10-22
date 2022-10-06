@@ -45,8 +45,8 @@ class MovieFindCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-
         $io = new SymfonyStyle($input, $output);
+        $this->provider->setIo($io);
 
         if (null === $value = $input->getArgument('value')) {
             $value = $io->ask("What is the title or Imdb ID of the movie you wish to import?");

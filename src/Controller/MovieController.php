@@ -13,11 +13,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class MovieController extends AbstractController
 {
     #[Route('', name: 'index')]
-    public function index(int $moviesPerPage, string $sfVersion): Response
+    public function index(MovieRepository $repository, int $moviesPerPage, string $sfVersion): Response
     {
         dump($moviesPerPage, $sfVersion);
         return $this->render('movie/index.html.twig', [
-            'controller_name' => 'Movie Index',
+            'movies' => $repository->findAll($moviesPerPage)
         ]);
     }
 
